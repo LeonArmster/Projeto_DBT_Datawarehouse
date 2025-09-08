@@ -26,7 +26,7 @@ def buscar_todos_commodities(commodities):
 
 # Salvar os dados no banco
 def salvar_db(df, schema='public'):
-    df.to_sql('tb_commodities', con=conexao, if_exists='replace', index=False, schema=schema)
+    df.to_sql('tb_commodities', con=conexao, if_exists='replace', index=True, index_label = 'Date', schema=schema)
 
 
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     print(db_host)
 
-
+    # Conectando ao banco
     database_url = f'postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
     engine = create_engine(database_url)
     conexao = engine.connect()
@@ -54,3 +54,7 @@ if __name__ == "__main__":
     commodities = ['CL=F', 'GC=F', 'SI=F']
     dados_concatenados = buscar_todos_commodities(commodities)
     salvar_db(dados_concatenados)
+
+
+
+    
